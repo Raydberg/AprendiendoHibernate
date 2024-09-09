@@ -18,6 +18,8 @@
         <property name="current_session_context_class">thread</property>
         <!-- DB schema will be updated if needed -->
         <property name="hibernate.hbm2ddl.auto">create</property>
+        <!--Introduce datos de un archivo data.sql-->
+        <property name="hibernate.hbm2ddl.import_files">import.sql,data.sql</property>
         <!-- MODELS / ENTITIES-->
         <mapping class="com.practice.entities.Employee"/>
         <mapping class="com.practice.entities.Car"/>

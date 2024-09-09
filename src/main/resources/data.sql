@@ -1,0 +1,2 @@
+INSERT INTO ob_employees (first_name, last_name, email, age, salary, married , birth_date,register_date) VALUES ('Data1', 'prueba1', 'data1@example.com', 15, 45000.00, TRUE,'1989-01-01','1990-04-11 12:15' );
+INSERT INTO ob_employees (first_name, last_name, email, age, salary, married , birth_date,register_date) VALUES ('Data2', 'prueba2', 'data2@example.com', 18, 85000.00, FALSE,'2051-01-01','1980-03-22 13:39' );

@@ -1,0 +1,4 @@
+INSERT INTO ob_employees (first_name, last_name, email, age, salary, married , birth_date,register_date) VALUES ('Carlos', 'Gomez', 'carlos.gomez@example.com', 28, 45000.00, TRUE,'1990-01-01','1990-01-01 12:35' );
+INSERT INTO ob_employees (first_name, last_name, email, age, salary, married , birth_date,register_date) VALUES ('Martha', 'CastroVal', 'martha.gomez@example.com', 28, 85000.00, FALSE,'2000-01-01','1980-01-01 12:35' );
+INSERT INTO ob_employees (first_name, last_name, email, age, salary, married , birth_date,register_date) VALUES ('Val', 'Valbuena', 'valbuena.gomez@example.com', 28, 45000.00, TRUE,'1990-01-01','1990-01-01 12:35' );
+INSERT INTO ob_employees (first_name, last_name, email, age, salary, married , birth_date,register_date) VALUES ('Omar', 'Valhuesa', 'valhuesa.gomez@example.com', 28, 85000.00, FALSE,'2000-01-01','1980-01-01 12:35' );
