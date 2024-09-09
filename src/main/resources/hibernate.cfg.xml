@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!--   Connexion a la base de datos MySQL-->
+        <property name="connection.url">jdbc:mysql://localhost:3306/ob_hibernate</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">2005</property>
+        <!-- Añadidos extras-->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <!-- Permite que Hibernate nos muestre la consultas de sql que realizamos-->
+        <property name="format_sql">true</property>
+        <!-- Formateo de SQL-->
+        <property name="show_sql">true</property>
+        <property name="current_session_context_class">thread</property>
+        <!-- DB schema will be updated if needed -->
+        <property name="hibernate.hbm2ddl.auto">create</property>
+        <!-- MODELS / ENTITIES-->
+        <mapping class="com.practice.entities.Employee"/>
+    </session-factory>
+</hibernate-configuration>
