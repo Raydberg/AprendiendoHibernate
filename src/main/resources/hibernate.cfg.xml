@@ -20,5 +20,6 @@
         <property name="hibernate.hbm2ddl.auto">create</property>
         <!-- MODELS / ENTITIES-->
         <mapping class="com.practice.entities.Employee"/>
+        <mapping class="com.practice.entities.Car"/>
     </session-factory>
 </hibernate-configuration>
