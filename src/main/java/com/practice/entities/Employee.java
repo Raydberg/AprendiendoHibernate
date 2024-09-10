@@ -1,10 +1,12 @@
 package com.practice.entities;
 
+import com.mysql.cj.xdevapi.AbstractDataResult;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.*;
 
 /***
  * Representa la tabla employee en la base de datos
@@ -16,7 +18,7 @@ public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "first_name",length = 30 , nullable = false)
+    @Column(name = "first_name", length = 30, nullable = false)
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
@@ -30,8 +32,21 @@ public class Employee implements Serializable {
     @Column(name = "register_date")
     private LocalDateTime registerDate;
 
+    //Estructura de Datos
+    @ElementCollection
+    //Inicializamos con un array para poder inicializarlo y no salga null
+    private List<String> nickNames = new ArrayList<>();
+    @ElementCollection
+    private List<Integer> postalCodes = new ArrayList<>();
+    @ElementCollection
+    private Set<String> crediCards = new HashSet<>();
+    @ElementCollection
+    private Map<String,String> phones = new HashMap<>();
+    @Enumerated(EnumType.STRING)
+    EmployeeCategory category;
+
     //Constructores
-//Almenos debe haber un constructor vacio para que el ORM lo utilice
+    //Almenos debe haber un constructor vacio para que el ORM lo utilice
     public Employee() {
     }
     //Constructor para usarlo nosotros
@@ -121,8 +136,47 @@ public class Employee implements Serializable {
         this.registerDate = registerDate;
     }
 
+    public List<String> getNickNames() {
+        return nickNames;
+    }
 
+    public void setNickNames(List<String> nickNames) {
+        this.nickNames = nickNames;
+    }
+
+    public List<Integer> getPostalCodes() {
+        return postalCodes;
+    }
+
+    public void setPostalCodes(List<Integer> postalCodes) {
+        this.postalCodes = postalCodes;
+    }
+
+    public Set<String> getCrediCards() {
+        return crediCards;
+    }
+
+    public void setCrediCards(Set<String> crediCards) {
+        this.crediCards = crediCards;
+    }
+
+    public Map<String, String> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(Map<String, String> phones) {
+        this.phones = phones;
+    }
+
+    public EmployeeCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(EmployeeCategory category) {
+        this.category = category;
+    }
 //Metodo toString
+
 
     @Override
     public String toString() {
@@ -136,6 +190,7 @@ public class Employee implements Serializable {
                 ", married=" + married +
                 ", birthDate=" + birthDate +
                 ", registerDate=" + registerDate +
+                ", nickNames=" + nickNames +
                 '}';
     }
 }
