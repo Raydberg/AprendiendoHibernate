@@ -1,12 +1,16 @@
 package com.practice.Entities;
 
+import com.practice.dao.DirectionDAO;
+import com.practice.dao.DirectionDAOImpl;
 import com.practice.dao.EmployeeDAO;
 import com.practice.dao.EmployeeDAOImpl;
+import com.practice.entities.Direction;
 import com.practice.entities.Employee;
 import com.practice.entities.EmployeeCategory;
 import com.practice.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -90,5 +94,29 @@ public class EnployeeTest {
         employee.setCategory(EmployeeCategory.SENIOR);
         EmployeeDAO dao = new EmployeeDAOImpl();
         dao.create(employee);
+    }
+
+    @Test
+    @DisplayName("Test para aprobar la asociacion One to One entre Employee y Direction")
+    void employeeDirectionTest() {
+        Direction direction = new Direction(null,"El street test","Trujillo","Peru");
+        Employee employee = new Employee(null,
+                "EmpleadoOneToOne",
+                "Garcia",
+                "oneToOne@gmail",
+                32,
+                4000d,
+                true,
+                LocalDate.of(1999, 1, 1),
+                LocalDateTime.now()
+        );
+        employee.setDirection(direction);//One to One
+        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+        DirectionDAO directionDAO = new DirectionDAOImpl();
+        directionDAO.create(direction);
+        employeeDAO.create(employee);
+        //Asegurarse recuperando de nuevo el empleado de base de datos
+      Employee employeeDB = employeeDAO.findById(1L);
+        System.out.println(employeeDB.getDirection());
     }
 }

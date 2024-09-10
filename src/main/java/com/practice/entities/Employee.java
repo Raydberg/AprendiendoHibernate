@@ -2,6 +2,8 @@ package com.practice.entities;
 
 import com.mysql.cj.xdevapi.AbstractDataResult;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.grammars.hql.HqlParser;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -41,9 +43,25 @@ public class Employee implements Serializable {
     @ElementCollection
     private Set<String> crediCards = new HashSet<>();
     @ElementCollection
-    private Map<String,String> phones = new HashMap<>();
+    private Map<String, String> phones = new HashMap<>();
     @Enumerated(EnumType.STRING)
     EmployeeCategory category;
+
+    // ###################################### ASOCIACION : ONE TO ONE ######################################
+    //1. Asociacion clave foranea
+    @OneToOne
+    @JoinColumn(name = "direction_pk",foreignKey = @ForeignKey(name = "fk_employee_direction") )
+//    @OneToOne
+//    @JoinTable(name = "ob_employees_direction"
+//            ,joinColumns =@JoinColumn(name = "employee_id")
+//            , inverseJoinColumns = @JoinColumn(name = "direction_id"))
+// 3. Asociacion Clave primaria
+//    @OneToOne
+//    @PrimaryKeyJoinColumn
+    //4. MapsId
+//    @OneToOne
+//    @MapsId
+    Direction direction;
 
     //Constructores
     //Almenos debe haber un constructor vacio para que el ORM lo utilice
@@ -174,6 +192,14 @@ public class Employee implements Serializable {
 
     public void setCategory(EmployeeCategory category) {
         this.category = category;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 //Metodo toString
 

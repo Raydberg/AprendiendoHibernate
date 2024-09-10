@@ -23,5 +23,6 @@
         <!-- MODELS / ENTITIES-->
         <mapping class="com.practice.entities.Employee"/>
         <mapping class="com.practice.entities.Car"/>
+        <mapping class="com.practice.entities.Direction"/>
     </session-factory>
 </hibernate-configuration>
