@@ -1,9 +1,6 @@
 package com.practice.entities;
 
-import com.mysql.cj.xdevapi.AbstractDataResult;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.grammars.hql.HqlParser;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -50,7 +47,7 @@ public class Employee implements Serializable {
     // ###################################### ASOCIACION : ONE TO ONE ######################################
     //1. Asociacion clave foranea
     @OneToOne
-    @JoinColumn(name = "direction_pk",foreignKey = @ForeignKey(name = "fk_employee_direction") )
+    @JoinColumn(name = "direction_pk", foreignKey = @ForeignKey(name = "fk_employee_direction"))
 //    @OneToOne
 //    @JoinTable(name = "ob_employees_direction"
 //            ,joinColumns =@JoinColumn(name = "employee_id")
@@ -58,12 +55,23 @@ public class Employee implements Serializable {
 // 3. Asociacion Clave primaria
 //    @OneToOne
 //    @PrimaryKeyJoinColumn
-    //4. MapsId
+            //4. MapsId
 //    @OneToOne
 //    @MapsId
-    Direction direction;
-
+            Direction direction;
+    //################################ ASOCIACION : ONE TO MANY ############################################
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "ob_employees_cars",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "car_id"))
+    List<Car> cars = new ArrayList<>();
+    //################################ ASOCIACION : MANY TO ONE ############################################
+    @ManyToOne(cascade = CascadeType.ALL)
+    Company company;
+  @ManyToMany(cascade = CascadeType.ALL)
+  List<Project> projects = new ArrayList<>();
     //Constructores
+
     //Almenos debe haber un constructor vacio para que el ORM lo utilice
     public Employee() {
     }
@@ -201,22 +209,31 @@ public class Employee implements Serializable {
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
-//Metodo toString
 
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", age=" + age +
-                ", salary=" + salary +
-                ", married=" + married +
-                ", birthDate=" + birthDate +
-                ", registerDate=" + registerDate +
-                ", nickNames=" + nickNames +
-                '}';
+    public List<Car> getCars() {
+        return cars;
     }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
+    //Metodo toString
+
+
 }

@@ -32,6 +32,12 @@ public interface EmployeeDAO {
     Employee findById(Long id);
 
     /**
+     *
+     * @param id
+     * @return
+     */
+     Employee findByIdEager(Long id);
+    /**
      * Busqueda de empleado por ID haciendo uso de Criteria
      * @param id
      * @return

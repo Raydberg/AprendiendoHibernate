@@ -24,5 +24,7 @@
         <mapping class="com.practice.entities.Employee"/>
         <mapping class="com.practice.entities.Car"/>
         <mapping class="com.practice.entities.Direction"/>
+        <mapping class="com.practice.entities.Company"/>
+         <mapping class="com.practice.entities.Project"/>
     </session-factory>
 </hibernate-configuration>
