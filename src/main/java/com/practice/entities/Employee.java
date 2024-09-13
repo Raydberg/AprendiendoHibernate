@@ -68,8 +68,8 @@ public class Employee implements Serializable {
     //################################ ASOCIACION : MANY TO ONE ############################################
     @ManyToOne(cascade = CascadeType.ALL)
     Company company;
-  @ManyToMany(cascade = CascadeType.ALL)
-  List<Project> projects = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    List<Project> projects = new ArrayList<>();
     //Constructores
 
     //Almenos debe haber un constructor vacio para que el ORM lo utilice
@@ -233,7 +233,21 @@ public class Employee implements Serializable {
     public void setProjects(List<Project> projects) {
         this.projects = projects;
     }
+
     //Metodo toString
 
-
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", age=" + age +
+                ", salary=" + salary +
+                ", married=" + married +
+                ", birthDate=" + birthDate +
+                ", registerDate=" + registerDate +
+                '}';
+    }
 }

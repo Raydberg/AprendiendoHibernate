@@ -1,6 +1,7 @@
 package com.practice.dao;
 
 import com.practice.entities.Employee;
+import com.practice.entities.EmployeeCategory;
 import com.practice.util.HibernateUtil;
 import jakarta.persistence.PersistenceException;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -49,8 +50,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public Employee findByIdEager(Long id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query<Employee> query = session.createQuery(" select distinct e from Employee e join fetch e.cars where e.id=:pk",Employee.class);
-        query.setParameter("pk",id);
+        Query<Employee> query = session.createQuery(" select distinct e from Employee e join fetch e.cars where e.id=:pk", Employee.class);
+        query.setParameter("pk", id);
         Employee employee = query.getSingleResult();
         session.close();
         return employee;
@@ -89,7 +90,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         CriteriaQuery<Employee> criteria = builder.createQuery(Employee.class);
         Root<Employee> root = criteria.from(Employee.class);
         //Like simulando metodos de SQL
-        Predicate filter = builder.like(root.get("lastName"),"%"+lastName+"%");
+        Predicate filter = builder.like(root.get("lastName"), "%" + lastName + "%");
         criteria.select(root).where(filter);
         //Query
         List<Employee> employee = session.createQuery(criteria).list();
@@ -104,7 +105,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         CriteriaQuery<Employee> criteria = builder.createQuery(Employee.class);
         Root<Employee> root = criteria.from(Employee.class);
         // gt metodo para indicar 'mayor que'
-        Predicate filter = builder.gt(root.get("age"),age);
+        Predicate filter = builder.gt(root.get("age"), age);
         criteria.select(root).where(filter);
         //Query
         List<Employee> employee = session.createQuery(criteria).list();
@@ -114,17 +115,32 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public List<Employee> findByAgeBetweenCriteria(Integer min, Integer max) {
-      Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Employee> criteria = builder.createQuery(Employee.class);
         Root<Employee> root = criteria.from(Employee.class);
         // between para rangos igual que SQL
-        Predicate filter = builder.between(root.get("age"),min,max);
+        Predicate filter = builder.between(root.get("age"), min, max);
         criteria.select(root).where(filter);
         //Query
         List<Employee> employee = session.createQuery(criteria).list();
         session.close();
         return employee;
+    }
+
+    @Override
+    public List<Employee> findByAgeBetweenCriteriaAndCategory(Integer ageMin, Integer ageMax, EmployeeCategory category) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Employee> criteria = builder.createQuery(Employee.class);
+        Root<Employee> root = criteria.from(Employee.class);
+        Predicate ageFilter = builder.between(root.get("age"), ageMin, ageMax);
+        Predicate categoryFilter = builder.equal(root.get("category"), category);
+        Predicate filter = builder.and(ageFilter, categoryFilter);
+        criteria.select(root).where(filter);
+        List<Employee> employees = session.createQuery(criteria).list();
+        session.close();
+        return employees;
     }
 
     @Override

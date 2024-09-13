@@ -1,6 +1,7 @@
 package com.practice.dao;
 
 import com.practice.entities.Employee;
+import com.practice.entities.EmployeeCategory;
 
 import java.util.List;
 
@@ -72,6 +73,16 @@ public interface EmployeeDAO {
      * @return
      */
     List<Employee> findByAgeBetweenCriteria(Integer min , Integer max );
+
+    /**
+     *
+     * @param ageMin
+     * @param ageMax
+     * @param category
+     * @return
+     */
+    List<Employee> findByAgeBetweenCriteriaAndCategory(Integer ageMin , Integer ageMax, EmployeeCategory category);
+
 
     /**
      * Inserta un nuevo reguistro en la tabla employees
